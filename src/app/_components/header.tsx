@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header className="bg-blue-500 w-full p-3">
       <nav className="flex flex-row justify-between">
-        <div>ANAL</div>
+        <div className="flex flex-row justify-center items-center">ANAL</div>
         <div></div>
         <div
           className={`${
