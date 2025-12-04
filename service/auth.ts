@@ -1,14 +1,12 @@
-"use server";
-import fs from "fs";
-import { Award } from "lucide-react";
 import { chromium } from "playwright";
-
+import fs from "fs";
 export async function ensureAuth() {
   try {
     const storagePath = "./auth.json";
-    let storageExists = fs.existsSync(storagePath);
-
+    console.log("checking if auth file exists...");
+    const storageExists = fs.existsSync(storagePath);
     if (!storageExists) {
+      console.warn("AUTH WAS NOT FOUND! opening browser... PLEASE LOGIN!");
       const browser = await chromium.launch({ headless: false });
       const context = storageExists
         ? await browser.newContext({ storageState: "./auth.json" })
@@ -40,7 +38,8 @@ export async function ensureAuth() {
       }
     });
     return true;
-  } catch {
+  } catch (error) {
+    console.error("error encountered:", error);
     return false;
   }
 }
