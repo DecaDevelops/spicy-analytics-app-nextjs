@@ -1,4 +1,13 @@
 @ echo off
+setlocal
+
+set SCRIPT_DIR=%~dp0
+cd /d "%SCRIPT_DIR%"
+REM REMOVE database.sqlite from src\_db if it exists
+if exist "%SCRIPT_DIR%src\_db\database.sqlite" (
+    del /f /q "%SCRIPT_DIR%src\_db\database.sqlite"
+)
+endlocal
 
 echo ==== RUNNING.... NPM scripts ==== 
 echo.
