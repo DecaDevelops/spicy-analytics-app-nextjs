@@ -2,18 +2,12 @@
 
 node.js can be installed here: [download](https://nodejs.org/en)
 
-once installed, navigate to the root of the folder and run:
+# After installing Node.js
 
-```bash
-npm i
-//once npm i finished, run:
+You can run install.bat
+running install.bat will install dependencies and open two cli's
+which will run `localhost:3000` and `drizzle-studio`
 
-npx drizzle-kit push
-// once migration is done run
-npm run dev
+after that, you can access the website on https://localhost:3000
 
-//should run on:
-http://localhost:3000
-```
-
-now the app should be useable. ^^
+now the app should be useable.
