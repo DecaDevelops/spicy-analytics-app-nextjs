@@ -1,4 +1,4 @@
-export const search = JSON.stringify({
+export const default_search = JSON.stringify({
   searches: [
     {
       query_by: "name,title,tags,creator_username,character_id,type",
@@ -13,8 +13,7 @@ export const search = JSON.stringify({
       collection: "public_characters_alias",
       q: "*",
       facet_by: "tags",
-      filter_by:
-        "application_ids:spicychat && tags:![Step-Family,NSFW,Oral,Vore,Flatulence,Masochistic,Watersport,CNC,Impregnation,Lactation,Anal] && is_nsfw:false && creator_user_id:!['kp:17e3258a8b374b81bf064777566d16f2'] && type:STANDARD",
+      filter_by: "application_ids:spicychat && is_nsfw:true ",
       max_facet_values: 100,
       page: 1,
       per_page: 48,

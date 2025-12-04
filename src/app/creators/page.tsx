@@ -1,7 +1,7 @@
 "use server";
 
-import { db } from "@/db/db";
-import { creators } from "@/db/schema";
+import { db } from "@/_db/db";
+import { creators } from "@/_db/schema";
 
 export default async function Page() {
   const _creators = await db.select().from(creators);
