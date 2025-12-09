@@ -6,7 +6,7 @@ export default async function Page() {
   const result = await getArchivedBots();
 
   return (
-    <div className="bg-slate-800 flex flex-col justify-center items-center gap-5 my-5">
+    <div className="bg-slate-800 grid grid-cols-3 gap-5 my-5 p-6">
       {result.map((x, key) => {
         const _bots = JSON.parse(x.bots) as bots_rank_history_disp[];
         return (
