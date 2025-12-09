@@ -62,8 +62,8 @@ export type my_chatbots = {
   creator_user_id: string;
   greeting: string;
   avatar_url: string;
-  num_messages: number;
-  rating_score: number;
+  num_messages?: number;
+  rating_score?: number;
   is_nsfw: boolean;
   avatar_is_nsfw: boolean;
   definition_visible: boolean;

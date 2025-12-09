@@ -1,5 +1,4 @@
 import { relations, sql } from "drizzle-orm";
-import { timestamp } from "drizzle-orm/gel-core";
 import {
   integer,
   sqliteTable,
@@ -52,8 +51,28 @@ export const my_chatbots = sqliteTable("my_chatbots", {
   token_count: integer(),
   creator_user_id: text().references(() => creators.creator_id),
   avatar_url: text(),
-  ...timestamp,
+  ...timestamps,
 });
+
+export const my_chatbots_history = sqliteTable(
+  "my_chatbots_history",
+  {
+    id: integer().primaryKey({ autoIncrement: true }),
+    bot_id: text()
+      .references(() => my_chatbots.bot_id)
+      .notNull(),
+    rating_score: text(),
+    num_messages: integer().notNull().default(0),
+    ...timestamps,
+  },
+  (table) => ({
+    uniqueIndex: uniqueIndex("uniq_bot_every_fifteen_minutes").on(
+      table.bot_id,
+      table.createdAt
+    ),
+  })
+);
+
 export const bots_rank_history = sqliteTable(
   "bot_rank_history",
   {
