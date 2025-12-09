@@ -1,10 +1,13 @@
 "use server";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import fs from "fs";
-import { AuthData, BearerTokens } from "@/types/auth";
+import { BearerTokens } from "@/types/auth";
 import { BASE_API_URL } from "../../../../../default.env";
-import { json } from "stream/consumers";
-export async function GET(req: NextRequest) {
+import { my_chatbots } from "@/_db/schema";
+import { my_chatbots as mc } from "@/types/typesense/chatbots";
+import { mapMyChatBots } from "@service/mappers/chatbot.mapper";
+import { db } from "@/_db/db";
+export async function GET() {
   if (!fs.existsSync("./auth.json")) {
     return NextResponse.json(
       { error: "Unauthorized, please log in!!" },
@@ -16,7 +19,6 @@ export async function GET(req: NextRequest) {
     const data = fs.readFileSync("./bearer.json", "utf-8");
 
     const authData = JSON.parse(data) as BearerTokens;
-    // return Response.json(authData);
     const headers = new Headers();
 
     if (authData) {
@@ -25,14 +27,20 @@ export async function GET(req: NextRequest) {
         method: "GET",
 
         headers: headers,
+        next: { revalidate: 3600 },
       });
+      if (!result.ok) return NextResponse.json({}, { status: 401 });
+      const results = await result.json();
+      const data = results.data as mc[];
+      const to_insert: (typeof my_chatbots.$inferInsert)[] = data.map((p) =>
+        mapMyChatBots(p)
+      );
 
-      return Response.json(await result.json());
+      await db.insert(my_chatbots).values(to_insert).onConflictDoNothing();
+
+      return Response.json({}, { status: 201 });
     }
   } catch (error) {
-    return NextResponse.json(
-      { error: "Unauthorized, please log in again" },
-      { status: 401 }
-    );
+    return NextResponse.json({}, { status: 401 });
   }
 }

@@ -29,4 +29,3 @@ echo ==== PUSH FINISHED ====
 echo.
 echo ==== INSTALL COMPLETE, starting run.bat ====
 start cmd /k "run.bat"
-exit

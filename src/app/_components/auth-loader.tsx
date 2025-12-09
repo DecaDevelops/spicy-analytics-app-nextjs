@@ -1,4 +1,4 @@
-import { BatteryWarningIcon, LoaderCircle, Meh } from "lucide-react";
+import { LoaderCircle, Meh } from "lucide-react";
 type props = {
   NotLoggedIn?: true;
 };
