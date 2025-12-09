@@ -10,7 +10,13 @@ import {
 } from "../../../../service/mappers/chatbot.mapper";
 import { BotsInsert, botsRankHistoryInsert, CreatorInsert } from "@/_db/types";
 import { db } from "@/_db/db";
-import { creators, bots as _bots, bots_rank_history, bots } from "@/_db/schema";
+import {
+  creators,
+  bots as _bots,
+  bots_rank_history,
+  bots,
+  available_tags,
+} from "@/_db/schema";
 import { sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
@@ -45,7 +51,13 @@ export async function GET() {
     const workable_array = result.results[0];
 
     const { hits, facet_counts } = workable_array;
-
+    const tags: (typeof available_tags.$inferInsert)[] =
+      facet_counts[0].counts.map((x, key) => {
+        return {
+          tag: x.value,
+          total: x.count,
+        } satisfies typeof available_tags.$inferInsert;
+      });
     const { authors, bots, botRankHistory } = hits.reduce<{
       authors: CreatorInsert[];
       bots: BotsInsert[];
@@ -63,6 +75,15 @@ export async function GET() {
     );
 
     await db.insert(creators).values(authors).onConflictDoNothing();
+    await db
+      .insert(available_tags)
+      .values(tags)
+      .onConflictDoUpdate({
+        target: available_tags.tag,
+        set: {
+          total: sql`excluded.total`,
+        },
+      });
     await db
       .insert(_bots)
       .values(bots)

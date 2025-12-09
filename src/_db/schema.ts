@@ -87,8 +87,8 @@ export const bots_rank_history = sqliteTable(
 // });
 
 export const available_tags = sqliteTable("available_bot_tags", {
-  id: integer().primaryKey({ autoIncrement: true }),
-  tag: text().unique().notNull(),
+  tag: text().primaryKey().notNull(),
+  total: integer().default(0),
   ...timestamps,
 });
 

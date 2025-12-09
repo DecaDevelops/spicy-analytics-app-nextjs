@@ -1,5 +1,5 @@
 type counts = {
-  counts: number;
+  count: number;
   highlighted: string;
   value: string;
 };
