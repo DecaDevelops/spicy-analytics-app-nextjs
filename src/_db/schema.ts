@@ -94,6 +94,7 @@ export const available_tags = sqliteTable("available_bot_tags", {
 
 export const creatorRelations = relations(creators, ({ many }) => ({
   bots: many(bots),
+  my_chatbots: many(my_chatbots),
 }));
 
 export const botRelations = relations(bots, ({ one, many }) => ({
@@ -101,6 +102,7 @@ export const botRelations = relations(bots, ({ one, many }) => ({
     fields: [bots.creator_user_id],
     references: [creators.creator_id],
   }),
+
   bots_rank_history: many(bots_rank_history),
 }));
 
@@ -113,3 +115,10 @@ export const botRankRelations = relations(
     }),
   })
 );
+
+export const myChatBotRelations = relations(my_chatbots, ({ one }) => ({
+  creator: one(creators, {
+    fields: [my_chatbots.creator_user_id],
+    references: [creators.creator_id],
+  }),
+}));

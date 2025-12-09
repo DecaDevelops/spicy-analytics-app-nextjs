@@ -1,6 +1,6 @@
 "use client";
 
-import { bots_rank_history_disp } from "../../action";
+import { bots_rank_history_disp } from "../action";
 
 type props = {
   bots: bots_rank_history_disp[];
