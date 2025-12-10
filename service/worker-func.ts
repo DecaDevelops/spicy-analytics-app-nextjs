@@ -10,7 +10,7 @@ export async function refreshBotsAndTrending() {
 
 export async function updateMyChatbots() {
   console.log("worker is getting your bots, please wait.... \n");
-  await fetch(BASE_URL + "/api/bots", { method: "GET" });
+  await fetch(BASE_URL + "/api/my/bots", { method: "GET" });
   console.log(
     "worker finished fetching your bots, you can see changes in drizzle studio or on the website"
   );

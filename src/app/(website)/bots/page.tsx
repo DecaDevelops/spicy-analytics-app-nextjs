@@ -5,7 +5,7 @@ import {
   BASE_URL,
   SPICY_CHATBOT_LINK,
   SPICY_CREATOR_LINK,
-} from "../../../default.env";
+} from "../../../../default.env";
 import { BotsSelect, CreatorSelect } from "@/_db/types";
 import Image from "next/image";
 import Link from "next/link";
