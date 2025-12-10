@@ -70,6 +70,10 @@ export const my_chatbots_history = sqliteTable(
       table.bot_id,
       table.createdAt
     ),
+    uniqCount: uniqueIndex("uniq_increased_amount").on(
+      table.bot_id,
+      table.num_messages
+    ),
   })
 );
 
