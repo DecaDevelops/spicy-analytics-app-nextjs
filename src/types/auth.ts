@@ -25,4 +25,5 @@ export type AuthData = {
 
 export type BearerTokens = {
   bearer: string;
+  guest_userid: string;
 };

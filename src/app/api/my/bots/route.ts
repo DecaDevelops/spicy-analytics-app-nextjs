@@ -1,7 +1,6 @@
 "use server";
 import { NextResponse } from "next/server";
 import fs from "fs";
-import { BearerTokens } from "@/types/auth";
 import { BASE_API_URL } from "../../../../../default.env";
 import { my_chatbots, my_chatbots_history } from "@/_db/schema";
 import { my_chatbots as mc } from "@/types/typesense/chatbots";
@@ -20,6 +19,8 @@ export async function GET() {
 
   try {
     const headers = await GetSpicyHeaders();
+    // console.log(headers);
+    // return Response.json({ shrug: "shrug" });
     const result = await fetch(BASE_API_URL, {
       method: "GET",
 
