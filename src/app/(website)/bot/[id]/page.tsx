@@ -31,7 +31,13 @@ export default async function Page({ params }: props) {
       {chatbot.my_chatbots_history.map((x, key) => (
         <div key={x.createdAt}>
           {x.num_messages} ({x.createdAt} {"->"}{" "}
-          {x.num_messages.toLocaleString()} )
+          {x.num_messages.toLocaleString()} ){" "}
+          <span>
+            Rating:{" "}
+            {x.rating_score
+              ? (Number(x.rating_score) * 100).toLocaleString() + "%"
+              : "unrated"}
+          </span>
         </div>
       ))}
     </div>
