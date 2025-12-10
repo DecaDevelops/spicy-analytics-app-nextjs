@@ -1,4 +1,5 @@
 import { db } from "@/_db/db";
+import Link from "next/link";
 
 export default async function MyChatbots() {
   const data = await db.query.my_chatbots.findMany({
@@ -15,9 +16,11 @@ export default async function MyChatbots() {
       </h1>
       <div className="grid grid-cols-3 gap-2 text-center">
         {data.map((x, key) => (
-          <div key={key}>
-            <h1>{x.bot_name}</h1>
-          </div>
+          <Link href={`/bot/${x.bot_id}`} key={key}>
+            <div key={key}>
+              <h1>{x.bot_name}</h1>
+            </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -139,9 +139,20 @@ export const botRankRelations = relations(
   })
 );
 
-export const myChatBotRelations = relations(my_chatbots, ({ one }) => ({
+export const myChatBotRelations = relations(my_chatbots, ({ one, many }) => ({
   creator: one(creators, {
     fields: [my_chatbots.creator_user_id],
     references: [creators.creator_id],
   }),
+  my_chatbots_history: many(my_chatbots_history),
 }));
+
+export const mychatbotsHistoryRelations = relations(
+  my_chatbots_history,
+  ({ one }) => ({
+    my_chatbots: one(my_chatbots, {
+      fields: [my_chatbots_history.bot_id],
+      references: [my_chatbots.bot_id],
+    }),
+  })
+);
